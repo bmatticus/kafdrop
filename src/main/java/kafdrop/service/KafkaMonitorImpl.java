@@ -104,6 +104,10 @@ public final class KafkaMonitorImpl implements KafkaMonitor {
         .collect(Collectors.toList());
   }
 
+  public List<TopicVO> getTopicsDetailed() {
+    return this.getTopics(highLevelConsumer.getAllTopics().keySet().toArray(new String[0]));
+  }
+
   public List<TopicVO> getTopics(String[] topics) {
     Map<String, List<PartitionInfo>> topicsMap = highLevelConsumer.getAllTopics();
 

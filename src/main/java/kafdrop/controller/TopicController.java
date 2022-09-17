@@ -23,6 +23,8 @@ import kafdrop.config.MessageFormatConfiguration;
 import kafdrop.model.*;
 import kafdrop.service.*;
 import kafdrop.util.MessageFormat;
+
+import org.apache.logging.log4j.core.pattern.HighlightConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
@@ -114,6 +116,15 @@ public final class TopicController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody List<TopicVO> getAllTopics() {
     return kafkaMonitor.getTopics();
+  }
+
+  @ApiOperation(value = "getAllTopics", notes = "Get list of all topics")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Success", response = String.class, responseContainer = "List")
+  })
+  @GetMapping(path = "/detailed", produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody List<TopicVO> getAllTopicsDetailed() {
+    return kafkaMonitor.getTopicsDetailed();
   }
 
   @ApiOperation(value = "getConsumers", notes = "Get consumers for a topic")
