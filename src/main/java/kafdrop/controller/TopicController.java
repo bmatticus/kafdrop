@@ -114,17 +114,11 @@ public final class TopicController {
       @ApiResponse(code = 200, message = "Success", response = String.class, responseContainer = "List")
   })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody List<TopicVO> getAllTopics() {
+  public @ResponseBody List<TopicVO> getAllTopics(@RequestParam(required = false) String details) {
+    if (details != null) {
+      return kafkaMonitor.getTopicsDetailed();  
+    }
     return kafkaMonitor.getTopics();
-  }
-
-  @ApiOperation(value = "getAllTopics", notes = "Get list of all topics")
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Success", response = String.class, responseContainer = "List")
-  })
-  @GetMapping(path = "/detailed", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody List<TopicVO> getAllTopicsDetailed() {
-    return kafkaMonitor.getTopicsDetailed();
   }
 
   @ApiOperation(value = "getConsumers", notes = "Get consumers for a topic")

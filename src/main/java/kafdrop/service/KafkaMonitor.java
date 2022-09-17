@@ -31,6 +31,8 @@ public interface KafkaMonitor {
 
   List<TopicVO> getTopics();
 
+  List<TopicVO> getTopicsDetailed();
+
   /**
    * Returns messages for a given topic.
    */
